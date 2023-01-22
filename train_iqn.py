@@ -5,7 +5,7 @@ from datetime import datetime
 
 from fqf_iqn_qrdqn.env import make_pytorch_env
 from fqf_iqn_qrdqn.agent import IQNAgent
-
+import wandb
 
 def run(args):
     with open(args.config) as f:
@@ -21,6 +21,8 @@ def run(args):
     time = datetime.now().strftime("%Y%m%d-%H%M")
     log_dir = os.path.join(
         'logs', args.env_id, f'{name}-seed{args.seed}-{time}')
+
+    wandb.init(project="IQN", config=config)
 
     # Create the agent and run.
     agent = IQNAgent(
